@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "NeAptekaBot": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

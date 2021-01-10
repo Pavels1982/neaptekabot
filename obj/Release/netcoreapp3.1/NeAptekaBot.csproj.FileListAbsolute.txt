@@ -1,0 +1,14 @@
+C:\Users\Pavel\Desktop\Work\NeAptekaBot\bin\Release\netcoreapp3.1\NeAptekaBot.exe
+C:\Users\Pavel\Desktop\Work\NeAptekaBot\bin\Release\netcoreapp3.1\NeAptekaBot.deps.json
+C:\Users\Pavel\Desktop\Work\NeAptekaBot\bin\Release\netcoreapp3.1\NeAptekaBot.runtimeconfig.json
+C:\Users\Pavel\Desktop\Work\NeAptekaBot\bin\Release\netcoreapp3.1\NeAptekaBot.runtimeconfig.dev.json
+C:\Users\Pavel\Desktop\Work\NeAptekaBot\bin\Release\netcoreapp3.1\NeAptekaBot.dll
+C:\Users\Pavel\Desktop\Work\NeAptekaBot\bin\Release\netcoreapp3.1\NeAptekaBot.pdb
+C:\Users\Pavel\Desktop\Work\NeAptekaBot\bin\Release\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\Pavel\Desktop\Work\NeAptekaBot\bin\Release\netcoreapp3.1\Telegram.Bot.dll
+C:\Users\Pavel\Desktop\Work\NeAptekaBot\obj\Release\netcoreapp3.1\NeAptekaBot.csprojAssemblyReference.cache
+C:\Users\Pavel\Desktop\Work\NeAptekaBot\obj\Release\netcoreapp3.1\NeAptekaBot.AssemblyInfoInputs.cache
+C:\Users\Pavel\Desktop\Work\NeAptekaBot\obj\Release\netcoreapp3.1\NeAptekaBot.AssemblyInfo.cs
+C:\Users\Pavel\Desktop\Work\NeAptekaBot\obj\Release\netcoreapp3.1\NeAptekaBot.csproj.CopyComplete
+C:\Users\Pavel\Desktop\Work\NeAptekaBot\obj\Release\netcoreapp3.1\NeAptekaBot.dll
+C:\Users\Pavel\Desktop\Work\NeAptekaBot\obj\Release\netcoreapp3.1\NeAptekaBot.pdb

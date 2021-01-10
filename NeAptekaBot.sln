@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeAptekaBot", "NeAptekaBot.csproj", "{B6E6618C-2B27-469B-82E5-5E5A9D303915}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B6E6618C-2B27-469B-82E5-5E5A9D303915}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6E6618C-2B27-469B-82E5-5E5A9D303915}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6E6618C-2B27-469B-82E5-5E5A9D303915}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6E6618C-2B27-469B-82E5-5E5A9D303915}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AA981687-906D-4B04-B00B-6E2A97E1F39F}
+	EndGlobalSection
+EndGlobal
