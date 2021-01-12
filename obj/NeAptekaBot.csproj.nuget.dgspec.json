@@ -43,6 +43,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "HtmlAgilityPack": {
+              "target": "Package",
+              "version": "[1.11.29, )"
+            },
             "Microsoft.Extensions.Configuration.CommandLine": {
               "target": "Package",
               "version": "[5.0.0, )"
@@ -50,6 +54,10 @@
             "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
               "target": "Package",
               "version": "[1.9.10, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
             },
             "Telegram.Bot": {
               "target": "Package",

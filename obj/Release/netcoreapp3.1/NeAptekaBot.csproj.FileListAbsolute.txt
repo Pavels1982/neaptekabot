@@ -12,3 +12,8 @@ C:\Users\Pavel\Desktop\Work\NeAptekaBot\obj\Release\netcoreapp3.1\NeAptekaBot.As
 C:\Users\Pavel\Desktop\Work\NeAptekaBot\obj\Release\netcoreapp3.1\NeAptekaBot.csproj.CopyComplete
 C:\Users\Pavel\Desktop\Work\NeAptekaBot\obj\Release\netcoreapp3.1\NeAptekaBot.dll
 C:\Users\Pavel\Desktop\Work\NeAptekaBot\obj\Release\netcoreapp3.1\NeAptekaBot.pdb
+C:\Users\Pavel\Desktop\Work\NeAptekaBot\bin\Release\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
+C:\Users\Pavel\Desktop\Work\NeAptekaBot\bin\Release\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Pavel\Desktop\Work\NeAptekaBot\bin\Release\netcoreapp3.1\Microsoft.Extensions.Configuration.CommandLine.dll
+C:\Users\Pavel\Desktop\Work\NeAptekaBot\bin\Release\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
+C:\Users\Pavel\Desktop\Work\NeAptekaBot\bin\Release\netcoreapp3.1\HtmlAgilityPack.dll
