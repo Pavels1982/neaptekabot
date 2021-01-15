@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using HtmlAgilityPack;
 using System.Collections.Generic;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace NeAptekaBot
 {
@@ -26,14 +27,15 @@ namespace NeAptekaBot
         private static ITelegramBotClient client;
         static HttpWebResponse response;
         static string page;
-        static HtmlAgilityPack.HtmlDocument html;
         static JObject json;
+        static HtmlAgilityPack.HtmlDocument html;
         static List<Offer> nodes = new List<Offer>();
+        static HtmlNodeCollection links;
         static void Main(string[] args)
         {
 
     
-            client = new TelegramBotClient("1506064902:AAH1x0iPMJsZIrb1elwSDzgCyejh2IXvFZo") { Timeout = TimeSpan.FromSeconds(10) };
+            client = new TelegramBotClient("1503814220:AAF7ZZ1Q4h71JOE2cjCTkkeyTaOnKkfkSbw") { Timeout = TimeSpan.FromSeconds(10) };
             var me = client.GetMeAsync().Result;
             Console.WriteLine(me.FirstName + " id: " + me.Id ) ;
             client.OnMessage += Client_OnMessage;
@@ -44,6 +46,8 @@ namespace NeAptekaBot
 
         private static async void Client_OnMessage(object sender, MessageEventArgs e)
         {
+            var typeMsg = e.Message.Type;
+            Console.WriteLine(typeMsg);
             var text = e?.Message?.Text;
             if (text == null) return;
             Console.WriteLine($"recived text '{text}' in chat '{e.Message.Chat.Id}'");
@@ -60,73 +64,69 @@ namespace NeAptekaBot
             Uri url3 = new Uri("https://монастырёв.рф/search?term=" + text);
             HtmlAgilityPack.HtmlWeb web = new HtmlAgilityPack.HtmlWeb();
             web.AutoDetectEncoding = true;
+            _ = await client.SendTextMessageAsync(e.Message.Chat, "Подождите, я ищу");
             html = web.Load(url3.AbsoluteUri);
+            links = html.DocumentNode.SelectNodes(".//div[@class='offer ']");
+
 
             nodes.Clear();
 
-            HtmlNodeCollection links = html.DocumentNode.SelectNodes(".//div[@class='offer ']");
-              foreach (HtmlNode node in links)
+            foreach (HtmlNode node in links)
             {
-                var analoglink = node.ChildNodes[1].SelectSingleNode(".//a[@class='offer__analogues-link']")?.GetAttributeValue("href", ""); ;
-                if (analoglink == null) break;
-
                 var offer = new Offer();
-                try
-                {
-                    offer.Analog_Link = analoglink;
-                    offer.Image = node.ChildNodes[1].ChildNodes[1].ChildNodes[1].SelectSingleNode(".//img").GetAttributeValue("src", "");
-                    offer.Title = node.ChildNodes[1].ChildNodes[3].ChildNodes[1].ChildNodes[1].InnerText.Trim();
-                    offer.Description = node.ChildNodes[1].ChildNodes[3].ChildNodes[11].InnerText.Trim();
-                    offer.Manufacturer = node.ChildNodes[1].ChildNodes[3].ChildNodes[13].ChildNodes[3].InnerHtml.Trim();
-                }
-                catch 
-                {
-                    offer.Image = "";
-                }
-                    try
-                {
-                    offer.Price = "Цена от " + node.ChildNodes[3].ChildNodes[1].ChildNodes[1].ChildNodes[3].ChildNodes[6].InnerText.Trim() + " руб";
-                }
-                catch
-                {
+                var analoglink = node.SelectSingleNode(".//a[@class='offer__analogues-link']")?.GetAttributeValue("href", ""); ;
+                if (analoglink == null) break;
+                offer.Title = node.SelectSingleNode(".//div[@class='offer__title link__text']")?.InnerText.Trim();
+                offer.Image = node.SelectSingleNode(".//img")?.GetAttributeValue("src", "");
+                offer.Analog_Link = analoglink;
+                offer.Description = node.SelectSingleNode(".//div[@class='offer__description']")?.InnerText.Trim();
+                offer.Manufacturer = node.SelectSingleNode(".//div[@class='offer__manufacturer']")?.InnerText.Trim();
+                offer.Price = "Цена от " + node.SelectSingleNode(".//div[@class='offer__price-old']")?.InnerText.Trim();
+                if (offer.Price == "")
                     offer.Price = "Цена неизвестна.";
-                }
-                
-                
-               nodes.Add(offer);
+              
+
+                nodes.Add(offer);
             }
             foreach (Offer offer in nodes)
             {
-                if (offer.Image != "")
+                try
                 {
-                    _ = await client.SendTextMessageAsync(
-                        chatId: e.Message.Chat.Id,
+                    if (offer.Image != "")
+                {
+
+                        List<InlineKeyboardButton> ButtonList = new List<InlineKeyboardButton>();
+
+                        ButtonList.Add(new InlineKeyboardButton() { Text = "Аналоги", CallbackData = "https://монастырёв.рф" +offer.Analog_Link });
+
+                        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(ButtonList);
+
+                        _ = await client.SendTextMessageAsync(
+                        chatId: e.Message.Chat,
                         disableWebPagePreview: false,
                         text: $"{offer.Title}\n{offer.Description}\n Производитель:{offer.Manufacturer}\n{offer.Price}[.]({ offer.Image})",
-                        parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown
+                        parseMode: Telegram.Bot.Types.Enums.ParseMode.Markdown,
+                        replyMarkup: inlineKeyboardMarkup
 
-                       );
-                    // await client.SendTextMessageAsync(e.Message.Chat.Id, offer.Image);
+                       ).ConfigureAwait(false);
+                    }
+
+                }
+                catch
+                {
+                    _ = await client.SendTextMessageAsync(e.Message.Chat, "Catch in offer");
                 }
 
-
             }
-           // text: $"<b>{offer.Title}</b>\n@bold []({offer.Image})\n<b>{offer.Description}</b>\n<b>Производитель:{offer.Manufacturer}</b>\n<b>Цена от:{offer.Price}</b>",
-                //        parseMode: Telegram.Bot.Types.Enums.ParseMode.Html
 
+            //      <b> bold </b>, <strong  bold </strong>
+            //<i> italic </i >, <em> italic </em >
+            //      < a href = "http://www.example.com/" > inline URL </ a >
+            //           < a href = "tg://user?id=123456789" > inline mention of a user</ a >
+            //                <code> inline fixed-width code </ code >
+            //                   <pre> pre - formatted fixed-width code block</pre>
 
-      //      <b> bold </b>, <strong  bold </strong>
-      //<i> italic </i >, <em> italic </em >
-      //      < a href = "http://www.example.com/" > inline URL </ a >
-      //           < a href = "tg://user?id=123456789" > inline mention of a user</ a >
-      //                <code> inline fixed-width code </ code >
-      //                   <pre> pre - formatted fixed-width code block</pre>
-
-            //await client.SendTextMessageAsync(<img src=\"{offer.Image}\"/>
-            //    chatId: e.Message.Chat,
-            //    text: $"{e.Message.Chat.FirstName}, привет!:  '{text}'"
-            //    ).ConfigureAwait(false);
-
+            _ = await client.SendTextMessageAsync(e.Message.Chat, "Поиск завершен");
         }
     }
 }
